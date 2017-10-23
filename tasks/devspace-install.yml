@@ -87,21 +87,21 @@
     group: "{{ devspace_user }}"
     mode: 0700
 
-- name: copy snoopy
+- name: copy configuration files
   become: yes
   become_user: "{{ devspace_user }}"
   copy:
-     src: "{{ snoopy_dir_path }}/{{ item.srcfile }}"
+     src: "{{ configuration_dir_path }}/{{ item.srcfile }}"
      dest: "{{ devspace_home }}/slave/{{ item.dest }}"
      owner: "{{ devspace_user }}"
      group: "{{ devspace_user }}"
      mode: 0700
   with_items:
     - { srcfile: ".ssh/config", dest: ".ssh/config" }
-    - { srcfile: ".ssh/snoopycrimecop_github", dest: ".ssh/snoopycrimecop_github" }
-    - { srcfile: ".ssh/snoopycrimecop_github.pub", dest: ".ssh/snoopycrimecop_github.pub" }
+    - { srcfile: ".ssh/id_github", dest: ".ssh/id_github" }
+    - { srcfile: ".ssh/id_github.pub", dest: ".ssh/id_github.pub" }
     - { srcfile: ".gitconfig", dest: ".gitconfig" }
-  when: snoopy_dir_path|length>0
+  when: configuration_dir_path|length>0
 
 - name: known_hosts
   become: yes
