@@ -98,8 +98,8 @@
      mode: 0700
   with_items:
     - { srcfile: ".ssh/config", dest: ".ssh/config" }
-    - { srcfile: ".ssh/id_github", dest: ".ssh/id_github" }
-    - { srcfile: ".ssh/id_github.pub", dest: ".ssh/id_github.pub" }
+    - { srcfile: ".ssh/id_rsa", dest: ".ssh/id_rsa" }
+    - { srcfile: ".ssh/id_rsa.pub", dest: ".ssh/id_rsa.pub" }
     - { srcfile: ".gitconfig", dest: ".gitconfig" }
   when: configuration_dir_path|length>0
 
@@ -178,7 +178,7 @@
 - name: rename to {{ devspace_omero_branch }}...
   become: yes
   become_user: "{{ devspace_user }}"
-  command: "{{ devspace_home }}/rename.py {{ devspace_omero_branch }}"
+  command: "{{ devspace_home }}/rename.py {{ devspace_omero_branch }} --user {{ github_user }} "
   args:
     chdir: "{{ devspace_home }}"
 
